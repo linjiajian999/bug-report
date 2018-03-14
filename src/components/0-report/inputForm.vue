@@ -1,7 +1,7 @@
 <template>
   <div class="input-form">
     <div class="form-item">
-      <mb-input label="项目名称(例：用户中心)" v-model="data.name"></mb-input>
+      <mb-input label="项目名称(例：XXXX：用户中心)" v-model="data.name"></mb-input>
     </div>
     <div class="form-item">
       <mb-input label="重现地址" v-model="data.url"></mb-input>
@@ -12,14 +12,19 @@
     <div class="form-item">
       <mb-input label="登录密码" v-model="data.password"></mb-input>
     </div>
-    <div class="form-item">
-      <span class="md-headline form-item--title">复现步骤</span>
-    </div>
+    <description></description>
+    <step></step>
   </div>
 </template>
 <script>
+import description from './description'
+import step from './step'
 export default {
   name: 'input-form',
+  components: {
+    description,
+    step
+  },
   props: {
     data: {
       type: Object,
