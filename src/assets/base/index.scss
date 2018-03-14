@@ -1,0 +1,10 @@
+@import './variables.scss';
+@import './typography.scss';
+@import './elevation.scss';
+
+* {
+  box-sizing: border-box;
+}
+html, body, #app {
+  height: 100%;
+}
