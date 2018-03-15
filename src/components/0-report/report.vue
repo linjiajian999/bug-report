@@ -1,12 +1,12 @@
 <template>
     <div class="report-page">
       <div class="report-left">
-        <div class="report-left-content md-elevation-9">
+        <div class="report-left-content md-elevation-20">
           <input-form></input-form>
         </div>
       </div>
       <div class="report-right">
-        <div class="report-right-content md-elevation-9">
+        <div class="report-right-content md-elevation-20">
           <output-form></output-form>
         </div>
       </div>
