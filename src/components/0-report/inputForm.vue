@@ -8,16 +8,28 @@
       </md-card-header>
       <md-card-content>
         <div class="form-item">
-          <mb-input label="项目名称(例：XXXX：用户中心)" v-model="info.name"></mb-input>
+          <mb-input
+            label="项目名称(例：XXXX：用户中心)"
+            v-model="info.name">
+          </mb-input>
         </div>
         <div class="form-item">
-          <mb-input label="bug重现地址" v-model="info.url"></mb-input>
+          <mb-input
+            label="bug重现地址"
+            v-model="info.url">
+          </mb-input>
         </div>
         <div class="form-item">
-          <mb-input label="登录账号" v-model="info.loginAccount"></mb-input>
+          <mb-input
+            label="登录账号"
+            v-model="info.loginAccount">
+          </mb-input>
         </div>
         <div class="form-item">
-          <mb-input label="登录密码" v-model="info.password"></mb-input>
+          <mb-input
+            label="登录密码"
+            v-model="info.password">
+          </mb-input>
         </div>
       </md-card-content>
     </md-card>
@@ -30,6 +42,7 @@
       <md-card-content>
         <md-radio v-model="info.bugFromSelect" value="前端">前端</md-radio>
         <md-radio v-model="info.bugFromSelect" value="后端">后端</md-radio>
+        <md-radio v-model="info.bugFromSelect" value="未知">未知</md-radio>
         <md-radio v-model="info.bugFromSelect" value="其他">其他</md-radio>
         <mb-input
           v-show="info.bugFromSelect === '其他'"

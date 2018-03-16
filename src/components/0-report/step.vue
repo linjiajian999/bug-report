@@ -1,31 +1,37 @@
 <template>
-  <div class="form-item">
-    <span class="md-headline form-item--title">复现步骤</span>
-    <md-steppers
-      md-vertical
-      :md-active-step.sync="activeStep">
-      <md-step
-        v-for="(step, index) in list"
-        :id="step.id"
-        :key="index"
-        :md-label="step.label"
-        :md-description="step.description"
-        :md-done="step.done">
-        <md-field>
-          <label>步骤描述</label>
-          <md-textarea v-model="step.content" md-counter="100"></md-textarea>
-        </md-field>
-        <the-button
-          @click="setDone(step, index)">
-          完成
-        </the-button>
-        <the-button
-          @click="nextStep(step, index)">
-          下一步
-        </the-button>
-      </md-step>
-    </md-steppers>
-  </div>
+  <md-card class="card-container">
+    <md-card-header>
+      <span class="md-title">
+        <span class="theme-color">复现步骤</span>
+      </span>
+    </md-card-header>
+    <md-card-content>
+      <md-steppers
+        md-vertical
+        :md-active-step.sync="activeStep">
+        <md-step
+          v-for="(step, index) in list"
+          :id="step.id"
+          :key="index"
+          :md-label="step.label"
+          :md-description="step.description"
+          :md-done="step.done">
+          <md-field>
+            <label>步骤描述</label>
+            <md-textarea v-model="step.content" md-counter="100"></md-textarea>
+          </md-field>
+          <the-button
+            @click="setDone(step, index)">
+            完成
+          </the-button>
+          <the-button
+            @click="nextStep(step, index)">
+            下一步
+          </the-button>
+        </md-step>
+      </md-steppers>
+    </md-card-content>
+  </md-card>
 </template>
 <script>
 import theButton from '../public/the-button'
