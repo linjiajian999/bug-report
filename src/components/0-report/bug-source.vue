@@ -6,14 +6,14 @@
       </div>
     </md-card-header>
     <md-card-content>
-      <md-radio v-model="info.bugFromSelect" value="前端">前端</md-radio>
-      <md-radio v-model="info.bugFromSelect" value="后端">后端</md-radio>
-      <md-radio v-model="info.bugFromSelect" value="未知">未知</md-radio>
-      <md-radio v-model="info.bugFromSelect" value="其他">其他</md-radio>
+      <md-radio v-model="bugFromSelect" value="前端">前端</md-radio>
+      <md-radio v-model="bugFromSelect" value="后端">后端</md-radio>
+      <md-radio v-model="bugFromSelect" value="未知">未知</md-radio>
+      <md-radio v-model="bugFromSelect" value="其他">其他</md-radio>
       <mb-input
-        v-show="info.bugFromSelect === '其他'"
+        v-show="bugFromSelect === '其他'"
         label="请输入bug来源"
-        v-model="info.bugFromOthers">
+        v-model="bugFromOthers">
       </mb-input>
     </md-card-content>
   </md-card>
@@ -21,11 +21,35 @@
 <script>
 export default {
   name: 'bugSource',
+  props: {
+    toGetInfo: {
+      default: false,
+      type: Boolean
+    }
+  },
   data() {
     return {
-      info: {
-        bugFromSelect: '',
-        bugFromOthers: ''
+      bugFromSelect: '',
+      bugFromOthers: ''
+    }
+  },
+  computed: {
+    bugFrom() {
+      return this.bugFromSelect === '其他' ? this.bugFromOthers : this.bugFromSelect
+    }
+  },
+  watch: {
+    toGetInfo(newVal) {
+      if (newVal) {
+        setTimeout(() => {
+          this.$emit('update:toGetInfo', false)
+        })
+        this.$emit('getInfo', {
+          type: 'source',
+          info: {
+            bugFrom: this.bugFrom
+          }
+        })
       }
     }
   }

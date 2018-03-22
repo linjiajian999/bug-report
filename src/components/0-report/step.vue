@@ -40,6 +40,12 @@ export default {
   components: {
     theButton
   },
+  props: {
+    toGetInfo: {
+      default: false,
+      type: Boolean
+    }
+  },
   data() {
     return {
       activeStep: 'step-0',
@@ -55,6 +61,19 @@ export default {
   filters: {
     generateDescription(content) {
       return content.length > 20 ? content.subStr(0, 20) : content
+    }
+  },
+  watch: {
+    toGetInfo(newVal) {
+      if (newVal) {
+        this.$emit('update:toGetInfo', false)
+        this.$emit('getInfo', {
+          type: 'step',
+          info: {
+            list: this.list.concat()
+          }
+        })
+      }
     }
   },
   methods: {
@@ -90,7 +109,7 @@ export default {
     setDescription(step) {
       const descriptionLength = 25
       step.description = step.content.length > descriptionLength
-        ? step.content.subStr(0, descriptionLength)
+        ? step.content.substr(0, descriptionLength)
         : step.content
     }
   }

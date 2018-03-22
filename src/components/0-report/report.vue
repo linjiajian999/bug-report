@@ -2,27 +2,43 @@
     <div class="report-page">
       <div class="report-left">
         <div class="report-left-content md-elevation-20">
-          <input-form></input-form>
+          <input-form
+            @getInfo="getInputInfo">
+          </input-form>
         </div>
       </div>
       <div class="report-right">
         <div class="report-right-content md-elevation-20">
-          <output-form></output-form>
+          <output-form
+            :info="inputInfo">
+          </output-form>
         </div>
       </div>
-      <div class="report-transform md-elevation-10">
+      <!-- <div class="report-transform md-elevation-10">
         <i class="report-transform-icon iconfont icon-copy"></i>
-      </div>
+      </div> -->
     </div>
 </template>
 <script>
 import inputForm from './inputForm.vue'
 import outputForm from './outputForm.vue'
+
+import getDefaultInfo from './get-default-info'
 export default {
   name: 'report',
   components: {
     inputForm,
     outputForm
+  },
+  data() {
+    return {
+      inputInfo: getDefaultInfo()
+    }
+  },
+  methods: {
+    getInputInfo(infoPayload) {
+      this.inputInfo = infoPayload
+    }
   }
 }
 </script>

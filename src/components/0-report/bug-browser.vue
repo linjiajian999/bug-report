@@ -21,6 +21,12 @@
 import UA from 'ua-device'
 export default {
   name: 'bugBrowser',
+  props: {
+    toGetInfo: {
+      default: false,
+      type: Boolean
+    }
+  },
   data() {
     return {
       info: {
@@ -39,6 +45,17 @@ export default {
         if (newVal !== 'others' || oldVal !== 'current') {
           this.info.bugFromBrowserText = ''
         }
+      }
+    },
+    toGetInfo(newVal) {
+      if (newVal) {
+        setTimeout(() => {
+          this.$emit('update:toGetInfo', false)
+        })
+        this.$emit('getInfo', {
+          type: 'browser',
+          info: this.browserInfo
+        })
       }
     }
   },

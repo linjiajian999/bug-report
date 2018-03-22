@@ -1,73 +1,105 @@
 <template>
   <div class="input-form">
-    <md-card class="card-container">
-      <md-card-header>
-        <div class="md-title">
-          <span class="theme-color">项目信息</span>
-        </div>
-      </md-card-header>
-      <md-card-content>
-        <div class="form-item">
-          <mb-input
-            label="项目名称(例：XXXX：用户中心)"
-            v-model="info.name">
-          </mb-input>
-        </div>
-        <div class="form-item">
-          <mb-input
-            label="bug重现地址"
-            v-model="info.url">
-          </mb-input>
-        </div>
-        <div class="form-item">
-          <mb-input
-            label="登录账号"
-            v-model="info.loginAccount">
-          </mb-input>
-        </div>
-        <div class="form-item">
-          <mb-input
-            label="登录密码"
-            v-model="info.password">
-          </mb-input>
-        </div>
-      </md-card-content>
-    </md-card>
-    <bug-source></bug-source>
-    <bug-browser></bug-browser>
-    <description></description>
-    <step></step>
+    <bug-info
+      :to-get-info.sync="toGetInfo"
+      @getInfo="dealInfo">
+    </bug-info>
+    <bug-source
+      :to-get-info.sync="toGetInfo"
+      @getInfo="dealInfo">
+    </bug-source>
+    <bug-browser
+      :to-get-info.sync="toGetInfo"
+      @getInfo="dealInfo">
+    </bug-browser>
+    <bug-description
+      :to-get-info.sync="toGetInfo"
+      @getInfo="dealInfo">
+    </bug-description>
+    <step
+      :to-get-info.sync="toGetInfo"
+      @getInfo="dealInfo">
+    </step>
+    <!-- <div class="md-elevation-10 input-form--center">
+      <i class="report-transform-icon iconfont icon-copy"></i>
+    </div> -->
+    <md-button
+      class="md-fab input-form--center"
+      @click="next">
+      <md-icon>+</md-icon>
+    </md-button>
   </div>
 </template>
 <script>
+import bugInfo from './bug-info'
 import bugSource from './bug-source'
 import bugBrowser from './bug-browser'
-import description from './description'
+import bugDescription from './bug-description'
 import step from './step'
+import theButton from '../public/the-button'
 export default {
   name: 'input-form',
   components: {
+    bugInfo,
     bugSource,
     bugBrowser,
-    description,
-    step
+    bugDescription,
+    step,
+    theButton
   },
   data() {
     return {
-      info: {
-        name: '',           // 项目名称
-        url: '',            // 重现地址
-        loginAccount: '',   // 登录账号
-        password: '',       // 登录密码
-        bugFromSelect: '前端',     // bug来源
-        bugFromOthers: '',  // bug来源其他
-        description: ''     // 描述
+      toGetInfo: false,
+      checkIsAllInfo: {
+        browser: {
+          count: 0,
+          info: {}
+        },
+        description: {
+          count: 0,
+          info: {}
+        },
+        info: {
+          count: 0,
+          info: {}
+        },
+        source: {
+          count: 0,
+          info: {}
+        },
+        step: {
+          count: 0,
+          info: {}
+        }
       }
     }
   },
-  computed: {
-    bugFrom() {
-      return this.bugFromSelect === '其他' ? this.bugFromOthers : this.bugFromSelect
+  methods: {
+    next() {
+      this.toGetInfo = true
+      document.documentElement.scrollTop = document.body.scrollTop = 0
+    },
+    dealInfo(infoPayload) {
+      const type = infoPayload.type
+      const info = infoPayload.info
+      if (this.checkIsAllInfo[type]) {
+        this.checkIsAllInfo[type].count++
+        this.checkIsAllInfo[type].info = info
+      }
+      let preCount = this.checkIsAllInfo.browser.count
+      let isAllUpdate = true
+      for (let key in this.checkIsAllInfo) {
+        if (preCount !== this.checkIsAllInfo[key].count) {
+          isAllUpdate = false
+        }
+      }
+      if (isAllUpdate) {
+        const updateInfo = {}
+        for (let key in this.checkIsAllInfo) {
+          updateInfo[key] = this.checkIsAllInfo[key].info
+        }
+        this.$emit('getInfo', updateInfo)
+      }
     }
   }
 }
@@ -76,6 +108,14 @@ export default {
 $theme-color: #6091f3;
 .input-form {
   padding: 24px 12px 24px;
+  &--center {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    z-index: 100;
+  }
 }
 .card-container {
   margin-bottom: 16px;
