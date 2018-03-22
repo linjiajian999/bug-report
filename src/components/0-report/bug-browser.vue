@@ -33,7 +33,6 @@ export default {
   },
   watch: {
     'info.bugFromBrowser'(newVal, oldVal) {
-      console.log(newVal)
       if (newVal === 'current') {
         this.info.bugFromBrowserText = this.uaInfo
       } else {
