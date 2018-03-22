@@ -20,10 +20,20 @@
         <label>请输入bug原因</label>
         <md-textarea v-model="cause" md-counter="500"></md-textarea>
       </md-field>
-      <md-field>
-        <label>请输入bug描述</label>
-        <md-textarea v-model="description" md-counter="500"></md-textarea>
-      </md-field>
+      <div class="description-container">
+        <div class="description-container--left">
+          <md-field>
+            <label>bug表现及描述</label>
+            <md-textarea v-model="description" md-counter="500"></md-textarea>
+          </md-field>
+        </div>
+        <div class="description-container--right">
+          <md-field>
+            <label>正确情况下期望表现</label>
+            <md-textarea v-model="description" md-counter="500"></md-textarea>
+          </md-field>
+        </div>
+      </div>
     </md-card-content>
   </md-card>
 </template>
@@ -40,3 +50,16 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.description {
+  &-container {
+    display: flex;
+    &--left {
+      margin-right: 16px;
+    }
+    &--left, &--right {
+      flex: 1;
+    }
+  }
+}
+</style>
