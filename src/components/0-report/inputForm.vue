@@ -110,11 +110,25 @@ $theme-color: #6091f3;
   padding: 24px 12px 24px;
   &--center {
     position: fixed;
-    left: 50%;
-    top: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
     z-index: 100;
+  }
+}
+@media all and (min-width: 501px) {
+  .input-form {
+    &--center {
+      left: 50%;
+      top: 50%;
+    }
+  }
+}
+@media all and (max-width: 500px) {
+  .input-form {
+    &--center {
+      right: 0;
+      bottom: 0;
+    }
   }
 }
 .card-container {
