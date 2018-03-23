@@ -106,7 +106,7 @@ export default {
 </script>
 <style lang="scss">
 $theme-color: #6091f3;
-.input-form {
+#app .input-form {
   padding: 24px 12px 24px;
   &--center {
     position: fixed;
